@@ -1,1 +1,1 @@
-web: gunicorn --workers=1 'flask_app:crate_app'
+web: gunicorn --workers=1 'flask_app:crate_app()'
