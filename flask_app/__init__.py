@@ -2,12 +2,22 @@ from flask import Flask, render_template, request
 import pickle
 import sqlite3
 from xgboost import XGBClassifier
+import psycopg2
+
+
+
 def create_app():
 
     app = Flask(__name__)
+    conn = psycopg2.connect(
+                            host="ec2-52-86-2-228.compute-1.amazonaws.com",
+                            database="dd5g8l3ltkq7fu",
+                            user="rxhgazotbubwqj",
+                            password="8b76cbfb2cf1c6e4591ccc8eff75d95f39e7873128b563d57666c849cbff0af7"
+                            )
 
-    conn = sqlite3.connect('loldata.db')
     cur = conn.cursor()
+    
     gameId_list = [] 
     for row in cur.execute("SELECT ci.Name FROM ChampID ci ORDER BY Name ASC"):
         gameId_list.append(str(row).split('\'')[1])
