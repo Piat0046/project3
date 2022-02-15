@@ -1,0 +1,106 @@
+<html>
+  <head>
+    <title>
+      HTML Page
+    </title>
+  </head>
+  <body>
+    <form method="GET" action="/calculate">
+        <div>
+            <select name="champ1">
+                <option value="none" selected disabled>=== select champion === </option>
+                {% for champ_name in name %}
+                <option value={{champ_name}}>{{champ_name}}</option>
+                {% endfor %}
+             </select>
+        </div>
+        <div>
+            <select name="champ2">
+                <option value="none" selected disabled>=== select champion === </option>
+                {% for champ_name in name %}
+                <option value={{champ_name}}>{{champ_name}}</option>
+                {% endfor %}
+             </select>
+        </div>
+        <div>
+            <select name="champ3">
+                <option value="none" selected disabled>=== select champion === </option>
+                {% for champ_name in name %}
+                <option value={{champ_name}}>{{champ_name}}</option>
+                {% endfor %}
+             </select>
+        </div>
+        <div>
+            <select name="champ4">
+                <option value="none" selected disabled>=== select champion === </option>
+                {% for champ_name in name %}
+                <option value={{champ_name}}>{{champ_name}}</option>
+                {% endfor %}
+             </select>
+        </div>
+        <div>
+            <select name="champ5">
+                <option value="none" selected disabled>=== select champion === </option>
+                {% for champ_name in name %}
+                <option value={{champ_name}}>{{champ_name}}</option>
+                {% endfor %}
+             </select>
+        </div>
+        <div>
+            <select name="champ6">
+                <option value="none" selected disabled>=== select champion === </option>
+                {% for champ_name in name %}
+                <option value={{champ_name}}>{{champ_name}}</option>
+                {% endfor %}
+             </select>
+        </div>
+        <div>
+            <select name="champ7">
+                <option value="none" selected disabled>=== select champion === </option>
+                {% for champ_name in name %}
+                <option value={{champ_name}}>{{champ_name}}</option>
+                {% endfor %}
+             </select>
+        </div>
+        <div>
+            <select name="champ8">
+                <option value="none" selected disabled>=== select champion === </option>
+                {% for champ_name in name %}
+                <option value={{champ_name}}>{{champ_name}}</option>
+                {% endfor %}
+             </select>
+        </div>
+        <div>
+            <select name="champ9">
+                <option value="none" selected disabled>=== select champion === </option>
+                {% for champ_name in name %}
+                <option value={{champ_name}}>{{champ_name}}</option>
+                {% endfor %}
+             </select>
+        </div>
+        <div>
+            <select name="champ10">
+                <option value="none" selected disabled>=== select champion === </option>
+                {% for champ_name in name %}
+                <option value={{champ_name}}>{{champ_name}}</option>
+                {% endfor %}
+             </select>
+        </div>
+        <div class='button'>
+            <button type="submit">전송</button>
+        </div>
+    </form>
+    <div>
+        <p>
+            {% if champ1 == None %}
+                <h5> please select champions. </h5>
+            {% else %}
+                <h5> 테스트 완료 </h5>
+                {% for j in champ %}
+                <p>{{j}}</p>    
+                {% endfor %}
+            {% endif %}
+        </p>
+    </div>
+  </body>
+</html>
