@@ -56,7 +56,7 @@ def create_app():
                                 "Accept-Language": "ko,en-US;q=0.9,en;q=0.8,es;q=0.7",
                                 "Accept-Charset": "application/x-www-form-urlencoded; charset=UTF-8",
                                 "Origin": "https://developer.riotgames.com",
-                                "X-Riot-Token": 'RGAPI-ef7f8cda-b5bf-472f-9c16-746901f4093b'  #jhpa0046
+                                "X-Riot-Token": 'RGAPI-51930c7c-d051-44a4-93e8-fcbb592beb5f'
                             }
 
             # for문 진행률 확인 라이브러리
