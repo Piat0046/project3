@@ -2,7 +2,7 @@ from flask import Flask, render_template, request
 import sqlite3
 
 
-def create_app()
+def create_app():
 
     app = Flask(__name__)
 
@@ -15,8 +15,6 @@ def create_app()
     conn.commit()
     cur.close
     conn.close
-
-
 
     @app.route('/')
     def index(champ1=None):
