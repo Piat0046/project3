@@ -3,6 +3,7 @@ import sqlite3
 
 
 def create_app()
+
     app = Flask(__name__)
 
     conn = sqlite3.connect('loldata.db')
@@ -41,3 +42,5 @@ def create_app()
 
     if __name__ == '__main__':
         app.run(debug=True)
+
+    return app
