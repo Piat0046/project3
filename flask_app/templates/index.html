@@ -5,86 +5,113 @@
     </title>
   </head>
   <body>
-    <form method="GET" action="/calculate">
+    <form method="GET" action="/result">
         <div>
-            <select name="champ1">
-                <option value="none" selected disabled>=== select champion === </option>
-                {% for champ_name in name %}
-                <option value={{champ_name}}>{{champ_name}}</option>
-                {% endfor %}
-             </select>
+        <label> Username &nbsp;<input type="text" size="19" name="username"></label><br>
         </div>
-        <div>
-            <select name="champ2">
-                <option value="none" selected disabled>=== select champion === </option>
-                {% for champ_name in name %}
-                <option value={{champ_name}}>{{champ_name}}</option>
-                {% endfor %}
-             </select>
+        <div class='button'>
+            <button type="submit">이름 전송</button>
         </div>
+    </form>
+    <form method="GET" action="/result">
         <div>
-            <select name="champ3">
+            <label> 1Pick &nbsp;<select name="champ1">
                 <option value="none" selected disabled>=== select champion === </option>
                 {% for champ_name in name %}
                 <option value={{champ_name}}>{{champ_name}}</option>
                 {% endfor %}
-             </select>
+             </select></label><br>
+             <label> 1Pick Nick &nbsp;<input type="text" size="19" name="champ1_nick"></label><br> 
         </div>
+        <p></p>
         <div>
-            <select name="champ4">
+            <label> 2Pick &nbsp;<select name="champ2">
                 <option value="none" selected disabled>=== select champion === </option>
                 {% for champ_name in name %}
                 <option value={{champ_name}}>{{champ_name}}</option>
                 {% endfor %}
-             </select>
+             </select></label><br>
+             <label> 2Pick Nick &nbsp;<input type="text" size="19" name="champ2_nick"></label><br> 
         </div>
+        <p></p>
         <div>
-            <select name="champ5">
+            <label> 3Pick &nbsp;<select name="champ3">
                 <option value="none" selected disabled>=== select champion === </option>
                 {% for champ_name in name %}
                 <option value={{champ_name}}>{{champ_name}}</option>
                 {% endfor %}
-             </select>
+             </select></label><br>
+             <label> 3Pick Nick &nbsp;<input type="text" size="19" name="champ3_nick"></label><br> 
         </div>
+        <p></p>
         <div>
-            <select name="champ6">
+            <label> 4Pick &nbsp;<select name="champ4">
                 <option value="none" selected disabled>=== select champion === </option>
                 {% for champ_name in name %}
                 <option value={{champ_name}}>{{champ_name}}</option>
                 {% endfor %}
-             </select>
+             </select></label><br>
+             <label> 4Pick Nick &nbsp;<input type="text" size="19" name="champ4_nick"></label><br> 
         </div>
+        <p></p>
         <div>
-            <select name="champ7">
+            <label> 5Pick &nbsp;<select name="champ5">
                 <option value="none" selected disabled>=== select champion === </option>
                 {% for champ_name in name %}
                 <option value={{champ_name}}>{{champ_name}}</option>
                 {% endfor %}
-             </select>
+             </select></label><br>
+             <label> 5Pick Nick &nbsp;<input type="text" size="19" name="champ5_nick"></label><br> 
         </div>
+        <p></p>
         <div>
-            <select name="champ8">
+            <label> 6Pick &nbsp;<select name="champ6">
                 <option value="none" selected disabled>=== select champion === </option>
                 {% for champ_name in name %}
                 <option value={{champ_name}}>{{champ_name}}</option>
                 {% endfor %}
-             </select>
+             </select></label><br>
+             <label> 6Pick Nick &nbsp;<input type="text" size="19" name="champ6_nick"></label><br> 
         </div>
+        <p></p>
         <div>
-            <select name="champ9">
+            <label> 7Pick &nbsp;<select name="champ7">
                 <option value="none" selected disabled>=== select champion === </option>
                 {% for champ_name in name %}
                 <option value={{champ_name}}>{{champ_name}}</option>
                 {% endfor %}
-             </select>
+             </select></label><br>
+             <label> 7Pick Nick &nbsp;<input type="text" size="19" name="champ7_nick"></label><br> 
         </div>
+        <p></p>
         <div>
-            <select name="champ10">
+            <label> 8Pick &nbsp;<select name="champ8">
                 <option value="none" selected disabled>=== select champion === </option>
                 {% for champ_name in name %}
                 <option value={{champ_name}}>{{champ_name}}</option>
                 {% endfor %}
-             </select>
+             </select></label><br>
+             <label> 8Pick Nick &nbsp;<input type="text" size="19" name="champ8_nick"></label><br> 
+        </div>
+        <p></p>
+        <div>
+            <label> 9Pick &nbsp;<select name="champ9">
+                <option value="none" selected disabled>=== select champion === </option>
+                {% for champ_name in name %}
+                <option value={{champ_name}}>{{champ_name}}</option>
+                {% endfor %}
+             </select></label><br>
+             <label> 9Pick Nick &nbsp;<input type="text" size="19" name="champ9_nick"></label><br> 
+        </div>
+        <p></p>
+        <div>
+            <label> 10Pick &nbsp;<select name="champ10">
+                <option value="none" selected disabled>=== select champion === </option>
+                {% for champ_name in name %}
+                <option value={{champ_name}}>{{champ_name}}</option>
+                {% endfor %}
+             </select></label><br>
+             <label> 10Pick Nick &nbsp;<input type="text" size="19" name="champ10_nick"></label><br> 
         </div>
         <div class='button'>
             <button type="submit">전송</button>
@@ -95,10 +122,22 @@
             {% if champ1 == None %}
                 <h5> please select champions. </h5>
             {% else %}
-                <h5> 테스트 완료 </h5>
-                {% for j in champ %}
-                <p>{{j}}</p>    
-                {% endfor %}
+                {% if (username != None) or (m == 'fail')%}
+                <h5>{{m}}</h5>
+                {% elif num < 10 %}
+                    <h5> please different select or select all champ </h5>
+                    <form method="GET" action="/">
+                    <button type="submit">뒤로 돌아가기</button>
+                    </form>
+                {% else %}
+                    <h5> 테스트 완료 </h5>
+                    {% for j in champ %}
+                    <p>{{j}}</p>    
+                    {% endfor %}
+                    {% for i in nick %}
+                    <p>{{i}}</p>    
+                    {% endfor %}
+                {% endif %}
             {% endif %}
         </p>
     </div>
