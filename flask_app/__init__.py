@@ -2,6 +2,9 @@ from flask import Flask, render_template, request
 import pickle
 import sqlite3
 from xgboost import XGBClassifier
+import psycopg2
+
+
 
 def create_app():
 
@@ -28,10 +31,17 @@ def create_app():
     @app.route('/result', methods=['POST', 'GET'])
     def result(champ1=None):
         import sqlite3
+        import psycopg2
 
-        conn = sqlite3.connect('loldata.db')
+        conn = psycopg2.connect(
+                                host="ec2-52-86-2-228.compute-1.amazonaws.com",
+                                database="dd5g8l3ltkq7fu",
+                                user="rxhgazotbubwqj",
+                                password="8b76cbfb2cf1c6e4591ccc8eff75d95f39e7873128b563d57666c849cbff0af7"
+                                )
+        #conn = sqlite3.connect('loldata.db')
         cur = conn.cursor()
-        cur.execute("SELECT COUNT(ld.ID) from Log_data ld")
+        cur.execute("SELECT COUNT('ID') from Log_data")
         count = int(str(cur.fetchone())[1])
 
         if request.method == 'POST':
@@ -114,7 +124,7 @@ def create_app():
                 print(count, type(count))
                 print(nick, type(nick))
                 cur.execute(f"""INSERT INTO Log_data("ID", "Input_name")
-                VALUES (?,?);""", val)
+                VALUES (%s,%s);""", val)
                 conn.commit()
             else:
                 if m == 'fail':
@@ -160,10 +170,10 @@ def create_app():
                                 log_data.append(champ_point)
                             
                             cur.execute(f"""INSERT INTO Log_data("ID", "Input_name","1pick_id","1pick","1score","2pick_id","2pick","2score",
-                                                                 "3pick_id","3pick","3score","4pick_id","4pick","4score","5pick_id","5pick","5score",
-                                                                 "6pick_id","6pick","6score","7pick_id","7pick","7score","8pick_id","8pick","8score",
-                                                                 "9pick_id","9pick","9score","10pick_id","10pick","10score")
-                                                                 VALUES (?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?);""", log_data)
+                                                                    "3pick_id","3pick","3score","4pick_id","4pick","4score","5pick_id","5pick","5score",
+                                                                    "6pick_id","6pick","6score","7pick_id","7pick","7score","8pick_id","8pick","8score",
+                                                                    "9pick_id","9pick","9score","10pick_id","10pick","10score")
+                                                                    VALUES (%s,%s,%s,%s,%s,%s,%s,%s,%s,%s,%s,%s,%s,%s,%s,%s,%s,%s,%s,%s,%s,%s,%s,%s,%s,%s,%s,%s,%s,%s,%s,%s);""", log_data)
                             import pickle
                             import sqlite3
                             import pandas as pd
