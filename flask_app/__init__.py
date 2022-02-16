@@ -34,11 +34,11 @@ def create_app():
         import psycopg2
 
         conn = psycopg2.connect(
-                                host="ec2-52-86-2-228.compute-1.amazonaws.com",
-                                database="dd5g8l3ltkq7fu",
-                                user="rxhgazotbubwqj",
-                                password="8b76cbfb2cf1c6e4591ccc8eff75d95f39e7873128b563d57666c849cbff0af7"
-                                )
+                                host="satao.db.elephantsql.com",
+                                database="ljwsehvw",
+                                user="ljwsehvw",
+                                password="f8GNVPTHztqqk13i-cO5VQUVLbaHrBvm"
+                                )   
         #conn = sqlite3.connect('loldata.db')
         cur = conn.cursor()
         cur.execute("SELECT COUNT('ID') from Log_data")
@@ -123,13 +123,13 @@ def create_app():
                 val = [count+1, nick]
                 print(count, type(count))
                 print(nick, type(nick))
-                cur.execute(f"""INSERT INTO Log_data("ID", "Input_name")
+                cur.execute(f"""INSERT INTO log_data("ID", "Input_name")
                 VALUES (%s,%s);""", val)
                 conn.commit()
             else:
                 if m == 'fail':
                     m = '소환사를 찾을 수 없습니다.'
-                    cur.execute(f"""INSERT INTO Log_data("ID", "Input_name")
+                    cur.execute(f"""INSERT INTO log_data("ID", "Input_name")
                     VALUES ({count+1},'{nick}');""")
                     conn.commit()
                     print('소환사를 찾을 수 없습니다.')
@@ -143,17 +143,19 @@ def create_app():
                     
                     if m == 'fail':
                         m = '소환사가 게임중이 아닙니다'
-                        cur.execute(f"""INSERT INTO Log_data("ID", "Input_name")
-                        VALUES ({count+1},'{nick}');""")
+                        game = False
+                        cur.execute(f"""INSERT INTO log_data("ID", "Input_name", "Ingame")
+                        VALUES ({count+1},'{nick}',{game});""")
                         conn.commit()
                         print('소환사가 게임중이 아닙니다')
 
                     elif m == 'pass':
                         try:
                             data = requests.get(url_game, headers=request_header).json()
-
+                            game = True
                             dic = []
-                            log_data = [count+1, nick]
+                            log_data = [count+1, nick, game]
+
                             for i in range(0,10):
                                 
                                 summoner_Id = data['participants'][i]['summonerId']
@@ -168,12 +170,13 @@ def create_app():
                                 dic.append(champ_id)
                                 dic.append(champ_point)
                                 log_data.append(champ_point)
-                            
-                            cur.execute(f"""INSERT INTO Log_data("ID", "Input_name","1pick_id","1pick","1score","2pick_id","2pick","2score",
+                            print(log_data)
+                            cur.execute(f"""INSERT INTO log_data("ID", "Input_name","1pick_id","Ingame","1pick","1score","2pick_id","2pick","2score",
                                                                     "3pick_id","3pick","3score","4pick_id","4pick","4score","5pick_id","5pick","5score",
                                                                     "6pick_id","6pick","6score","7pick_id","7pick","7score","8pick_id","8pick","8score",
                                                                     "9pick_id","9pick","9score","10pick_id","10pick","10score")
                                                                     VALUES (%s,%s,%s,%s,%s,%s,%s,%s,%s,%s,%s,%s,%s,%s,%s,%s,%s,%s,%s,%s,%s,%s,%s,%s,%s,%s,%s,%s,%s,%s,%s,%s);""", log_data)
+                            conn.commit()
                             import pickle
                             import sqlite3
                             import pandas as pd
@@ -229,8 +232,10 @@ def create_app():
                             m = f'예상승리팀={y_pred}, 예상 확률 블루팀={int(list(c[0])[0]*100)}%, 레드팀{int(list(c[1])[0]*100)}% '
                         except:
                             m = '알수없는 오류입니다'
-                            cur.execute(f"""INSERT INTO Log_data("ID", "Input_name")
-                            VALUES ({count+1},{nick});""")
+                            print(m)
+                            gmae = False
+                            cur.execute(f"""INSERT INTO Log_data("ID", "Input_name", "Ingame")
+                            VALUES ({count+1},'{nick}', {game});""")
                             conn.commit()
             
 
