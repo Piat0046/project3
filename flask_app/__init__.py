@@ -172,7 +172,7 @@ def create_app():
                             dic.append(champ_point)
                             log_data.append(champ_point)
                         print(log_data)
-                        cur.execute(f"""INSERT INTO log_data("ID", "Input_name","1pick_id","Ingame","1pick","1score","2pick_id","2pick","2score",
+                        cur.execute(f"""INSERT INTO log_data("ID", "Input_name","Ingame","1pick_id","1pick","1score","2pick_id","2pick","2score",
                                                                 "3pick_id","3pick","3score","4pick_id","4pick","4score","5pick_id","5pick","5score",
                                                                 "6pick_id","6pick","6score","7pick_id","7pick","7score","8pick_id","8pick","8score",
                                                                 "9pick_id","9pick","9score","10pick_id","10pick","10score")
