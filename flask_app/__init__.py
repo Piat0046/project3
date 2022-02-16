@@ -34,17 +34,15 @@ def create_app():
         import psycopg2
 
         conn = psycopg2.connect(
-                                host="satao.db.elephantsql.com",
-                                database="ljwsehvw",
-                                user="ljwsehvw",
-                                password="f8GNVPTHztqqk13i-cO5VQUVLbaHrBvm"
+                                host="ec2-52-86-2-228.compute-1.amazonaws.com",
+                                database="dd5g8l3ltkq7fu",
+                                user="rxhgazotbubwqj",
+                                password="8b76cbfb2cf1c6e4591ccc8eff75d95f39e7873128b563d57666c849cbff0af7"
                                 )   
         #conn = sqlite3.connect('loldata.db')
         cur = conn.cursor()
         cur.execute("SELECT COUNT('ID') from Log_data")
         count = int(str(cur.fetchone())[1])
-        cur.close
-        conn.close
 
         if request.method == 'POST':
             pass
@@ -125,35 +123,15 @@ def create_app():
                 val = [count+1, nick]
                 print(count, type(count))
                 print(nick, type(nick))
-                conn = psycopg2.connect(
-                                host="satao.db.elephantsql.com",
-                                database="ljwsehvw",
-                                user="ljwsehvw",
-                                password="f8GNVPTHztqqk13i-cO5VQUVLbaHrBvm"
-                                )   
-        
-                cur = conn.cursor()
                 cur.execute(f"""INSERT INTO log_data("ID", "Input_name")
                 VALUES (%s,%s);""", val)
                 conn.commit()
-                cur.close
-                conn.close
             else:
                 if m == 'fail':
                     m = '소환사를 찾을 수 없습니다.'
-                    conn = psycopg2.connect(
-                                host="satao.db.elephantsql.com",
-                                database="ljwsehvw",
-                                user="ljwsehvw",
-                                password="f8GNVPTHztqqk13i-cO5VQUVLbaHrBvm"
-                                )   
-        
-                    cur = conn.cursor()
                     cur.execute(f"""INSERT INTO log_data("ID", "Input_name")
                     VALUES ({count+1},'{nick}');""")
                     conn.commit()
-                    cur.close
-                    conn.close
                     print('소환사를 찾을 수 없습니다.')
 
                 elif m == 'pass':
@@ -166,20 +144,9 @@ def create_app():
                     if m == 'fail':
                         m = '소환사가 게임중이 아닙니다'
                         game = False
-
-                        conn = psycopg2.connect(
-                                host="satao.db.elephantsql.com",
-                                database="ljwsehvw",
-                                user="ljwsehvw",
-                                password="f8GNVPTHztqqk13i-cO5VQUVLbaHrBvm"
-                                )   
-        
-                        cur = conn.cursor()
                         cur.execute(f"""INSERT INTO log_data("ID", "Input_name", "Ingame")
                         VALUES ({count+1},'{nick}',{game});""")
                         conn.commit()
-                        cur.close
-                        conn.close
                         print('소환사가 게임중이 아닙니다')
 
                     elif m == 'pass':
@@ -204,24 +171,12 @@ def create_app():
                                 dic.append(champ_point)
                                 log_data.append(champ_point)
                             print(log_data)
-
-                            conn = psycopg2.connect(
-                                host="satao.db.elephantsql.com",
-                                database="ljwsehvw",
-                                user="ljwsehvw",
-                                password="f8GNVPTHztqqk13i-cO5VQUVLbaHrBvm"
-                                )   
-        
-                            cur = conn.cursor()
                             cur.execute(f"""INSERT INTO log_data("ID", "Input_name","1pick_id","Ingame","1pick","1score","2pick_id","2pick","2score",
                                                                     "3pick_id","3pick","3score","4pick_id","4pick","4score","5pick_id","5pick","5score",
                                                                     "6pick_id","6pick","6score","7pick_id","7pick","7score","8pick_id","8pick","8score",
                                                                     "9pick_id","9pick","9score","10pick_id","10pick","10score")
-                                                                    VALUES (%s,%s,%s,%s,%s,%s,%s,%s,%s,%s,%s,%s,%s,%s,%s,%s,%s,%s,%s,%s,%s,%s,%s,%s,%s,%s,%s,%s,%s,%s,%s,%s);""", log_data)
+                                                                    VALUES (%s,%s,%s,%s,%s,%s,%s,%s,%s,%s,%s,%s,%s,%s,%s,%s,%s,%s,%s,%s,%s,%s,%s,%s,%s,%s,%s,%s,%s,%s,%s,%s,%s);""", log_data)
                             conn.commit()
-                            cur.close
-                            conn.close
-
                             import pickle
                             import sqlite3
                             import pandas as pd
@@ -279,23 +234,13 @@ def create_app():
                             m = '알수없는 오류입니다'
                             print(m)
                             gmae = False
-                            
-                            conn = psycopg2.connect(
-                                host="satao.db.elephantsql.com",
-                                database="ljwsehvw",
-                                user="ljwsehvw",
-                                password="f8GNVPTHztqqk13i-cO5VQUVLbaHrBvm"
-                                )   
-        
-                            cur = conn.cursor()
                             cur.execute(f"""INSERT INTO Log_data("ID", "Input_name", "Ingame")
                             VALUES ({count+1},'{nick}', {game});""")
                             conn.commit()
-                            cur.close
-                            conn.close
             
 
-        
+        cur.close
+        conn.close
 
         return render_template('index.html', nick = sel_nick, champ=sel_champ, num = num, username = nick, m = m)
 
