@@ -230,7 +230,7 @@ def create_app():
                         else:
                             y_pred = '블루팀'
 
-                        m = f'예상승리팀={y_pred}, 예상 확률 블루팀={int(list(c[0])[0]*100)}%, 레드팀{int(list(c[1])[0]*100)}% '
+                        m = f'예상승리팀 : {y_pred},{"     "}블루팀={int(list(c[0])[0]*100)}%, 레드팀{int(list(c[1])[0]*100)}%'
                         #except:
                             #m = '알수없는 오류입니다'
             
@@ -238,7 +238,7 @@ def create_app():
         cur.close
         conn.close
 
-        return render_template('index.html', nick = sel_nick, champ=sel_champ, num = num, username = nick, m = m)
+        return render_template('result.html', nick = sel_nick, champ=sel_champ, num = num, username = nick, m = m)
 
 
     if __name__ == '__main__':
